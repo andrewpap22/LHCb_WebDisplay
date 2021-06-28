@@ -1,18 +1,42 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PhoenixUIModule } from 'phoenix-ui-components';
+import { environment } from '../environments/environment';
 
-import { AppRoutingModule } from './app-routing.module';
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
+import { LHCbExperimentComponent } from './lhcb-experiment/lhcb-experiment.component';
+import { HomeComponent } from './home/home.component';
+
+let routes: Routes;
+
+if (environment?.singleEvent) {
+  routes = [{ path: '', component: LHCbExperimentComponent }];
+} else {
+  routes = [
+    { path: '', component: HomeComponent },
+    { path: 'home', component: HomeComponent },
+    { path: 'lhcb', component: LHCbExperimentComponent }
+  ];
+}
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    LHCbExperimentComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HttpClientModule,
+    RouterModule.forRoot(routes, {
+      useHash: environment?.singleEvent ? false : true,
+    }),
+    BrowserAnimationsModule,
+    PhoenixUIModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
