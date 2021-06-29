@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { EventDisplayService } from 'phoenix-ui-components';
-import { Configuration, PhoenixLoader, PresetView, PhoenixMenuNode } from 'phoenix-event-display';
+import { EventDisplayService, ImportOption } from 'phoenix-ui-components';
+import {
+  PhoenixMenuNode,
+  LHCbLoader,
+  Configuration,
+  PresetView,
+  PhoenixLoader,
+} from 'phoenix-event-display';
 
 @Component({
   selector: 'app-lhcb-experiment',
@@ -8,36 +14,121 @@ import { Configuration, PhoenixLoader, PresetView, PhoenixMenuNode } from 'phoen
   styleUrls: ['./lhcb-experiment.component.scss']
 })
 export class LHCbExperimentComponent implements OnInit {
+  events: any;
+  lhcbLoader: any;
+  phoenixMenuRoot: PhoenixMenuNode = new PhoenixMenuNode(
+    'Phoenix Menu',
+    'phoenix-menu'
+  );
+  loaded = false;
+  loadingProgress = 0;
 
-  /** The root Phoenix menu node. */
-  phoenixMenuRoot = new PhoenixMenuNode("Phoenix Menu");
-
-  constructor(private eventDisplay: EventDisplayService) { }
+  constructor(private eventDisplay: EventDisplayService) {}
 
   ngOnInit() {
-    // Create the event display configuration
+    this.lhcbLoader = new LHCbLoader();
+
     const configuration: Configuration = {
       eventDataLoader: new PhoenixLoader(),
       presetViews: [
-        new PresetView('Left View', [0, 0, -12000], 'left-cube'),
-        new PresetView('Center View', [-500, 12000, 0], 'top-cube'),
-        new PresetView('Right View', [0, 0, 12000], 'right-cube')
+        new PresetView('Right View', [0, 0, 6000], 'right-cube'),
+        new PresetView('Center View', [-500, 1000, 0], 'top-cube'),
+        new PresetView('Left View', [0, 0, -6000], 'left-cube'),
       ],
-      defaultView: [4000, 0, 4000],
+      defaultView: [-800, 300, -1000],
       phoenixMenuRoot: this.phoenixMenuRoot,
-      // Event data to load by default
       defaultEventFile: {
-        // (Assuming the file exists in the `src/assets/event-data` directory of the app)
         eventFile: 'assets/event-data/LHCbEventDataV2.json',
-        eventType: 'json'
+        eventType: 'json',
       },
-    }
+    };
 
-    // Initialize the event display
     this.eventDisplay.init(configuration);
 
-    // Load detector geometry (assuming the file exists in the `src/assets` directory of the app)
-    this.eventDisplay.loadGLTFGeometry('assets/geometry/lhcb.gltf', 'LHCb run2 Detector');
-  }
+    this.eventDisplay.loadGLTFGeometry(
+      'assets/geometry/LHCb_run3_PIPE.gltf',
+      'Pipe',
+      'Base',
+      1,
+      true
+    );
+    this.eventDisplay.loadGLTFGeometry(
+      'assets/geometry/LHCb_run3_MAGNET.gltf',
+      'Upper & Lower Coils',
+      'Magnets',
+      1,
+      true
+    );
+    this.eventDisplay.loadGLTFGeometry(
+      'assets/geometry/LHCb_run3_MagnetCover.gltf',
+      'Magnet Cover',
+      'Magnets',
+      1,
+      false
+    );
+    this.eventDisplay.loadGLTFGeometry(
+      'assets/geometry/LHCb_run2_ECAL.gltf',
+      'Ecal',
+      'DownstreamRegion',
+      1,
+      false
+    );
+    this.eventDisplay.loadGLTFGeometry(
+      'assets/geometry/LHCb_run2_HCAL.gltf',
+      'Hcal',
+      'DownstreamRegion',
+      1,
+      false
+    );
+    this.eventDisplay.loadGLTFGeometry(
+      'assets/geometry/LHCb_run2_MUON.gltf',
+      'Muon',
+      'DownstreamRegion',
+      1,
+      true
+    );
+    this.eventDisplay.loadGLTFGeometry(
+      'assets/geometry/LHCb_run3_FT.gltf',
+      'FT',
+      'AfterMagnetRegion',
+      1,
+      true
+    );
+    this.eventDisplay.loadGLTFGeometry(
+      'assets/geometry/LHCb_run3_Rich_AfterMagnet.gltf',
+      'Rich',
+      'AfterMagnetRegion',
+      1,
+      true
+    );
+    this.eventDisplay.loadGLTFGeometry(
+      'assets/geometry/LHCb_run3_Rich_BeforeMagnet.gltf',
+      'Rich',
+      'BeforeMagnetRegion',
+      1,
+      true
+    );
+    this.eventDisplay.loadGLTFGeometry(
+      'assets/geometry/LHCb_run3_VP.gltf',
+      'VP',
+      'BeforeMagnetRegion',
+      1,
+      true
+    );
+    this.eventDisplay.loadGLTFGeometry(
+      'assets/geometry/LHCb_run3_UT.gltf',
+      'UT',
+      'BeforeMagnetRegion',
+      1,
+      true
+    );
 
+    this.eventDisplay
+      .getLoadingManager()
+      .addProgressListener((progress) => (this.loadingProgress = progress));
+
+    this.eventDisplay
+      .getLoadingManager()
+      .addLoadListenerWithCheck(() => (this.loaded = true));
+  }
 }
