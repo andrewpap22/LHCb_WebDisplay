@@ -131,7 +131,7 @@ export class HomeComponent implements AfterViewInit {
           var slide = new Slide(width, height, 'out');
           var l1 = new THREE.ImageLoader();
           l1.setCrossOrigin('Anonymous');
-          l1.load('http://cds.cern.ch/record/1209651/files/bul-pho-2009-090_04.jpg', function(img) {
+          l1.load('https://i.imgur.com/k5R21rG.png', function(img) {
               slide.setImage(img);
           })
           root.scene.add(slide);
@@ -139,7 +139,7 @@ export class HomeComponent implements AfterViewInit {
           var slide2 = new Slide(width, height, 'in');
           var l2 = new THREE.ImageLoader();
           l2.setCrossOrigin('Anonymous');
-          l2.load('http://cds.cern.ch/record/2059944/files/LHCbDetector_3D.png', function(img) {
+          l2.load('https://i.imgur.com/4VjWDja.png', function(img) {
               slide2.setImage(img);
           })
 
