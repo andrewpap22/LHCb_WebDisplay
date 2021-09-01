@@ -4,11 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PhoenixUIModule } from 'phoenix-ui-components';
 import { environment } from '../environments/environment';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LHCbExperimentComponent } from './lhcb-experiment/lhcb-experiment.component';
 import { HomeComponent } from './home/home.component';
+import { GltfExporterComponent } from './gltf-exporter/gltf-exporter.component';
 
 let routes: Routes;
 
@@ -18,7 +20,8 @@ if (environment?.singleEvent) {
   routes = [
     { path: '', component: HomeComponent },
     { path: 'home', component: HomeComponent },
-    { path: 'lhcb', component: LHCbExperimentComponent }
+    { path: 'lhcb', component: LHCbExperimentComponent },
+    { path: 'gltf-exporter', component: GltfExporterComponent }
   ];
 }
 
@@ -26,10 +29,13 @@ if (environment?.singleEvent) {
   declarations: [
     AppComponent,
     HomeComponent,
-    LHCbExperimentComponent
+    LHCbExperimentComponent,
+    GltfExporterComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes, {
       useHash: environment?.singleEvent ? false : true,

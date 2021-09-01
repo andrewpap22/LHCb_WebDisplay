@@ -33,7 +33,9 @@
                         "styles": [
                             "src/styles.scss"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "node_modules/three/examples/js/exporters/GLTFExporter.js"
+                        ]
                     },
                     "configurations": {
                         "production": {

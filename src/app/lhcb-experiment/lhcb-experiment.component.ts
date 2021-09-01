@@ -96,20 +96,20 @@ export class LHCbExperimentComponent implements OnInit {
     );
     this.eventDisplay.loadGLTFGeometry(
       'assets/geometry/LHCb_run3_Rich_AfterMagnet.gltf',
-      'Rich',
+      'Rich2',
       'AfterMagnetRegion',
       1,
       true
     );
     this.eventDisplay.loadGLTFGeometry(
       'assets/geometry/LHCb_run3_Rich_BeforeMagnet.gltf',
-      'Rich',
+      'Rich1',
       'BeforeMagnetRegion',
       1,
       true
     );
     this.eventDisplay.loadGLTFGeometry(
-      'assets/geometry/LHCb_run3_VP.gltf',
+      'assets/geometry/LHCb_run3_VP_better_Performance.gltf',
       'VP',
       'BeforeMagnetRegion',
       1,

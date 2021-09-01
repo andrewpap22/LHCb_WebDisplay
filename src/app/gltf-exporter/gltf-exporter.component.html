@@ -1,0 +1,279 @@
+<div class="container">
+  <div class="pricing-header p-3 pt-md-5 pb-md-4 text-center">
+    <img
+      routerLink="/lhcb"
+      src="assets/images/LHCb.svg"
+      class="logo mb-4"
+      alt=""
+    />
+
+    <div
+      style="
+        width: 100%;
+        height: 100%;
+        border: dashed 2px cyan;
+        position: relative;
+      "
+    >
+      <div style="width: 100%; height: 100%">
+        <p class="lead" style="margin-top: 21px; color: darkcyan">
+          <b>Import your ROOT geometry</b>
+        </p>
+        <p class="lead">You can specify a URL or an internal file path.</p>
+        <p class="lead">
+          ❗Try filling out the placeholder text of the inputs❗
+        </p>
+
+        <form [formGroup]="rootURL" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label class="lead" for="rooturl"> rootURL </label>
+            <input
+              class="form-control"
+              type="text"
+              formControlName="rooturl"
+              id="rooturl"
+              placeholder="../../../assets/geometry/lhcbfull.root"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="lead" for="rootObject"> rootObject </label>
+            <input
+              class="form-control"
+              type="text"
+              formControlName="rootObject"
+              id="rootObject"
+              placeholder="Geometry;1"
+            />
+          </div>
+
+          <button
+            type="submit"
+            id="root-import"
+            class="btn btn-primary"
+            style="margin-bottom: 21px"
+          >
+            Import ROOT
+          </button>
+
+          <!-- clear the contents of the div where the root geometry is drawn, to redraw another geometry -->
+          <button
+            class="btn btn-primary"
+            style="margin-bottom: 21px; margin-left: 22px"
+            (click)="drawing.innerHTML = ''"
+          >
+            Clear Scene
+          </button>
+        </form>
+
+        <p class="lead">OR</p>
+        <p style="color: darkcyan" class="lead">
+          📂 <b>Import local root files</b>
+        </p>
+
+        <div class="custom-file">
+          <input
+            #rootFileInput
+            type="file"
+            tabindex="-1"
+            class="file-input"
+            accept=".root"
+            (change)="handleROOTInput($event)"
+            id="customFile"
+          />
+          <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+      </div>
+
+      <!-- On the following div the ROOT geometry is being drawn -->
+
+      <div
+        id="drawing"
+        #drawing
+        style="
+          width: 900px;
+          height: 650px;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          border: dashed 2px cyan;
+          position: relative;
+          margin-bottom: 21px;
+          margin-top: 21px;
+        "
+      ></div>
+
+      <!-- Information about the usage of the ROOT GUI -->
+
+      <p style="color: darkcyan" class="lead"><b>ROOT GUI TOOL</b></p>
+      <p class="lead">
+        The following tool can be used to find out the ROOT Object of your .root
+        file / geometry.
+      </p>
+      <p class="lead">❗❗Example</p>
+      <p class="lead">
+        Import the following link to the input bar on the left hand side:
+        <b style="color: aqua">https://root.cern/files/lhcbfull.root</b>
+      </p>
+      <p class="lead">Click the <b>load</b> button</p>
+      <p class="lead">
+        You can then find again on the left hand side of the GUI the following
+        string being generated 👉 <b style="color: aqua">Geometry;1</b>
+      </p>
+      <p class="lead">
+        That is the ROOT Object that you need to add alongside your ROOT file to
+        the importer above!
+      </p>
+      <p class="lead">
+        For each .root file that is the way of finding out your "key" ROOT
+        Object so you can import it above and draw it and export it to .gltf
+        below.
+      </p>
+      <p class="lead">
+        You can find more information about more features and usages of the
+        following GUI ROOT Tool on ROOT's 👉
+        <a
+          href="https://github.com/root-project/jsroot/blob/master/docs/JSROOT.md"
+          >Documentation.</a
+        >
+      </p>
+      <p class="lead">
+        Also you can find more .root files to test the tool on the following
+        link 👉 <a href="https://root.cern/files/">.root Files</a>❗
+      </p>
+
+      <div
+        id="rootGUI"
+        style="
+          width: 900px;
+          height: 650px;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          border: dashed 2px cyan;
+          position: relative;
+          margin-bottom: 21px;
+          margin-top: 21px;
+        "
+      ></div>
+    </div>
+
+    <div
+      style="
+        width: 100%;
+        height: 100%;
+        margin-top: 21px;
+        border: dashed 2px cyan;
+        position: relative;
+      "
+    >
+      <p class="lead" style="margin-top: 21px; color: darkcyan">
+        <b>Export your ROOT geometry to .gltf</b>
+      </p>
+      <p class="lead">
+        Keep in mind that, for the exporter to work your .root geometry should
+        be a supported TGeo object. <br />
+        We'll assume that you know what that means since you're here and using
+        this tool. <br />
+        If not sure, head over to
+        <a
+          href="https://github.com/root-project/jsroot/blob/master/docs/JSROOT.md#tgeo-api"
+          >ROOT's Documentation</a
+        >. <br />
+      </p>
+      <div>
+        <p class="lead">
+          As this tool exports you whole .root geometry to a whole .gltf file
+          format, you might also want to export your .root file into multiple
+          sub-volumes || sub-geometries. This option is still a WIP for this GUI
+          but you can have a look on how you can perform that on the following
+          project:
+        </p>
+        <br />
+
+        <ul>
+          <li>
+            <a href="https://github.com/andrewpap22/root_cern-To_gltf-Exporter"
+              >1️⃣ non-gui_gltfExporter</a
+            >
+          </li>
+          <li>
+            <a href="https://gitlab.cern.ch/bcouturi/gltfexporter"
+              >2️⃣ non-gui_gltfExporter</a
+            >
+          </li>
+        </ul>
+
+        <br />
+
+        <p class="lead">
+          Do follow the detailed instructions on the README and you should be
+          good to export your sub-geometries from your single .root file into
+          multiple .gltf's. <br />
+          If stuck, please do open an issue on the respective repositories where
+          friendly folks can try and help!
+        </p>
+      </div>
+      <form [formGroup]="rootURL" (ngSubmit)="exportGeometry()">
+        <button
+          type="submit"
+          id="gltf-export"
+          class="btn btn-primary"
+          style="margin-bottom: 21px"
+        >
+          Export to .gltf
+        </button>
+      </form>
+    </div>
+
+    <div
+      style="
+        width: 100%;
+        height: 100%;
+        margin-top: 21px;
+        border: dashed 2px cyan;
+        position: relative;
+      "
+    >
+      <p class="lead" style="margin-top: 21px; color: darkcyan">
+        <b>Display your exported .gltf geometry!</b>
+      </p>
+
+      <div style="overflow: hidden; padding-top: 56.25%; position: relative">
+        <iframe
+          src="https://gltf-viewer.donmccurdy.com/"
+          allow="fullscreen"
+          style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+          "
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>
+    ©️ <a href="https://home.cern/">CERN</a>,
+    <a href="https://twitter.com/AndreasPappas22">Andreas Pappas</a
+    ><a href="https://lhcb.web.cern.ch/"> @LHCb</a>, <em>{{ year }}</em> LHCb
+    Web Display Project
+  </p>
+  <p>
+    <a href="https://github.com/andrewpap22/LHCb_WebDisplay"> GitHub </a> -
+    <a href="https://gitlab.cern.ch/anpappas/LHCb_WebDisplay"> GitLab </a> -
+    <a href="https://github.com/HSF/phoenix/blob/master/README.md">
+      Phoenix Documentation
+    </a>
+  </p>
+  <p>
+    <a routerLink="/" class="btn btn-primary" style="margin-bottom: 21px"
+      >Return Home 🏠</a
+    >
+  </p>
+</footer>
