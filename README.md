@@ -26,7 +26,7 @@
 
 * 🌐 [CERN](https://lhcb-web-display.app.cern.ch/)
 
-## 📝 Project Structure
+## 📂 Project Structure
 
 ```bash
 .
@@ -123,6 +123,66 @@ Details:
 
 ## 🖥️ LHCb Web Event and Geometry Display
 
-qwerty...
+> The project is mainly using the [Phoenix Framework](https://github.com/HSF/phoenix) for it's UI which was selected for the years of 2019 and 2020 as a Google Summer of Code [GSoC](https://summerofcode.withgoogle.com/) Project, to which **I'm a contributor**! 
 
-&copy; 2021 by [\<Andreas\> \<\\A. Pappas\>](https://twitter.com/AndreasPappas22) @[CERN](https://home.cern/)
+### ⌨️ Local Development
+
+For running the project locally on your machine you will need **Node.js**, **npm** and **yarn**.
+
+#### ⬇️ Get Node.js and npm 
+
+> /// Note that npm comes alongside Node.js 
+
+The recommended way to get the latest versions is to use the `Node Version Manager` a.k.a [nvm](https://github.com/nvm-sh/nvm)
+
+Please do follow the instructions on the following 👉 [README.md](https://github.com/nvm-sh/nvm/blob/master/README.md) to get latest stable versions of Node.js and npm for the family of UNIX operating systems. (MacOS and Linux)
+For Windows you can follow the same instructions by using [gitBash](https://gitforwindows.org/) or
+by downloading Node.js from their [website](https://nodejs.org/en/).
+
+#### ⬇️ Get yarn, install dependencies and run the project locally
+
+Once you have Node.js and npm, install yarn by issuing the following command: 
+
+```bash
+$ npm install --global yarn
+```
+
+Then, do `git clone` the project locally and be sure you're into the `./LHCb_WebDisplay` directory and then:
+
+```bash
+### Install the required dependencies 
+
+$ yarn install
+
+### Run the project in development / watch mode
+
+$ yarn start
+```
+
+Now, `LHCb_WebDisplay` will start in development / watch mode. Any change made to the source code while the local server is running, will rebuild and hot reload the project itself. 
+
+You can access and view the `LHCb_WebDisplay` as well as the *GUI* for the `gltf_exporter` (which we'll analyse later on) by heading into the browser of your choice and typing into the address bar: `http://localhost:4200/`
+
+> /// TODO
+> /// Do write at this point some information about the project and the UI 
+> /// Showcase an animated gif with some of the features
+
+## 🖼️ ROOT to Gltf Exporter
+
+> /// TODO
+> /// Do write detailed information about the use of the gui and non gui exporter about it's purpose and usage
+> /// Do add an animated gif demonstrating the usage
+
+&copy; [CERN](https://home.cern/) 2021 by [\<Andreas\> \<\\A. Pappas\>](https://twitter.com/AndreasPappas22) @[LHCb](https://lhcb.web.cern.ch/)
+
+-------------------------------------------------------------------------------------------------------------------------
+TODOs: 
+
+vhmata gia full successfull local dev tou project ✅
+vhmata gia to deployment me ta commands apo to gitlab
+plhrofories gia to okd4 
+info to execute project using docker
+point to Phoenix Documentation for info on how to setup another experiment, as we did with this one
+and add detailed information on how the gui and non gui gltf exporter can be used to export geometries and display them.
+na deiksw kapoia screenshots h video gia to pws douleuoun ta 2 project. (na kanw record to screen mou me to peek)
+--------------------------------------------------------------------------------------------------------------------------
