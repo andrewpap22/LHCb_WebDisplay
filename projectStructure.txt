@@ -1,34 +1,3 @@
-# 🖥️ LHCb Web Event && Geometry Display Project
-
-> This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.0.
-
-<div align="center">
-
-[![License][license-img]][license-url]
- ![Repository Size](https://img.shields.io/github/repo-size/andrewpap22/LHCb_WebDisplay)
- ![Last Commit](https://img.shields.io/github/last-commit/andrewpap22/LHCb_WebDisplay)
- ![Open Issues](https://img.shields.io/github/issues/andrewpap22/LHCb_WebDisplay?color=important)
- ![Open Pull Requests](https://img.shields.io/github/issues-pr/andrewpap22/LHCb_WebDisplay?color=yellowgreen)
- [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
-
-[license-img]: https://img.shields.io/github/license/hsf/phoenix.svg
-[license-url]: https://github.com/hsf/phoenix/blob/master/LICENSE
-
-</div>
-
-<div align="center">
-
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fandrewpap22%2FLHCb_WebDisplay&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://lhcb-web-display.app.cern.ch/)
-
-</div>
-
-## 🚀 Up on
-
-* 🌐 [CERN](https://lhcb-web-display.app.cern.ch/)
-
-## 📝 Project Structure
-
-```bash
 .
 ├── angular.json
 ├── Dockerfile
@@ -64,7 +33,16 @@
 │  │  ├── event-data
 │  │  │  └── LHCbEventDataV2.json
 │  │  ├── favicon
-│  │  │  └── favicon.ico
+│  │  │  ├── android-chrome-192x192.png
+│  │  │  ├── android-chrome-512x512.png
+│  │  │  ├── apple-touch-icon.png
+│  │  │  ├── browserconfig.xml
+│  │  │  ├── favicon-16x16.png
+│  │  │  ├── favicon-32x32.png
+│  │  │  ├── favicon.ico
+│  │  │  ├── mstile-150x150.png
+│  │  │  ├── safari-pinned-tab.svg
+│  │  │  └── site.webmanifest
 │  │  ├── geometry
 │  │  │  ├── lhcb.gltf
 │  │  │  ├── LHCb_run2_ECAL.gltf
@@ -86,11 +64,60 @@
 │  │  │  └── lhcbfull.root
 │  │  ├── icons
 │  │  │  ├── add-icon.svg
+│  │  │  ├── add.svg
+│  │  │  ├── animate-camera.svg
+│  │  │  ├── ar.svg
+│  │  │  ├── axis.svg
+│  │  │  ├── clipping.svg
+│  │  │  ├── close.svg
+│  │  │  ├── collapse.svg
+│  │  │  ├── cursor.svg
+│  │  │  ├── dark.svg
+│  │  │  ├── event-folder.svg
+│  │  │  ├── eventData.svg
+│  │  │  ├── expand.svg
+│  │  │  ├── file-import.svg
+│  │  │  ├── file.svg
+│  │  │  ├── gear.svg
+│  │  │  ├── github.svg
+│  │  │  ├── gltf.svg
+│  │  │  ├── help.svg
+│  │  │  ├── import.svg
+│  │  │  ├── info-panel.svg
+│  │  │  ├── info.svg
+│  │  │  ├── left-cube.svg
+│  │  │  ├── link.svg
+│  │  │  ├── more.svg
+│  │  │  ├── move-lock.svg
+│  │  │  ├── obj.svg
+│  │  │  ├── orthographic.svg
+│  │  │  ├── overlay.svg
+│  │  │  ├── performance.svg
+│  │  │  ├── perspective.svg
+│  │  │  ├── phoenix-menu.svg
+│  │  │  ├── right-cube.svg
+│  │  │  ├── rotate.svg
+│  │  │  ├── save.svg
+│  │  │  ├── share.svg
+│  │  │  ├── ss-mode.svg
+│  │  │  ├── top-cube.svg
+│  │  │  ├── transparent.svg
+│  │  │  ├── update.svg
+│  │  │  ├── upload-event.svg
+│  │  │  ├── upload.svg
+│  │  │  ├── views.svg
+│  │  │  ├── vr.svg
+│  │  │  ├── zoom-in.svg
 │  │  │  └── zoom-out.svg
 │  │  └── images
+│  │     ├── atlas.svg
+│  │     ├── cms.svg
 │  │     ├── geometry.svg
+│  │     ├── lhcb.svg
 │  │     ├── LHCb.svg
 │  │     ├── lhcb_logo.png
+│  │     ├── logo-small.svg
+│  │     ├── logo-text.svg
 │  │     └── playground.svg
 │  ├── environments
 │  │  ├── environment.prod.ts
@@ -105,24 +132,3 @@
 ├── tsconfig.json
 ├── tsconfig.spec.json
 └── yarn.lock
-
-## I've removed lot's of stuff from assets as this was getting huge.
-```
-
-## 💬 Summary
-
-The following project consists of an **important** part of my work @[CERN](https://home.cern/) 
-as a [Software Engineer](https://gitlab.cern.ch/anpappas) (TECH) for the years of 2021-2022 on the [LHCb](http://lhcb-public.web.cern.ch/) the Large Hadron Collider beauty experiment.
-
-In Particular it consists of two parts.
-
-1. *The LHCb Web Event and Geometry display* itself
-2. *The .root to .gltf Exporter*
-
-Details: 
-
-## 🖥️ LHCb Web Event and Geometry Display
-
-qwerty...
-
-&copy; 2021 by [\<Andreas\> \<\\A. Pappas\>](https://twitter.com/AndreasPappas22) @[CERN](https://home.cern/)
