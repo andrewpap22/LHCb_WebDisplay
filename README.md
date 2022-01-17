@@ -163,26 +163,131 @@ Now, `LHCb_WebDisplay` will start in development / watch mode. Any change made t
 
 You can access and view the `LHCb_WebDisplay` as well as the *GUI* for the `gltf_exporter` (which we'll analyse later on) by heading into the browser of your choice and typing into the address bar: `http://localhost:4200/`
 
-> /// TODO
-> /// Do write at this point some information about the project and the UI 
-> /// Showcase an animated gif with some of the features
+<hr>
+
+For detailed documentation and demos about the usage of the Phoenix UI you can head over to this 👉 [URL](https://github.com/HSF/phoenix) or have a look on my 🖼️ [final presentation](./AndreasPappas_03-12-2021_LHCb-week.pdf) given at the 102th LHCb week 2021 at CERN.
+
+As of 2022 you will be able as well to read the published paper and poster of the project at [ACAT2021](https://indico.cern.ch/event/855454/contributions/4598428/)
+
+<hr>
 
 ## 🖼️ ROOT to Gltf Exporter
 
-> /// TODO
-> /// Do write detailed information about the use of the gui and non gui exporter about it's purpose and usage
-> /// Do add an animated gif demonstrating the usage
+### Introduction
+
+It seems that a need has arose to convert GDML geometry files to a particular file format that describes a geometry,
+that can be supported and visualized properly by Phoenix. 
+Hopefully by following the steps bellow you will be able to achieve it. 
+Please do open an [issue](https://github.com/HSF/phoenix/issues) in case of problems, where friendly folks can try and help. 
+
+#### Convert GDML to ROOT 
+
+Root will serve as a middleman for our purpose. 
+Root is a C++ Data Analysis Framework. One needs to install it first locally by heading into Root's 👉 [Documentation](https://root.cern/install/) and following the steps listed over there. 
+
+Once that is done, one can write a simple C++ function that will loop over the contents of the GDML file and with the help of some of the ROOT's Framework methods it will output a proper .root file with the name specified, which we will later on use to convert it into GLTF format and visualize it into Phoenix. 
+
+The following C++ code works and serves for the above mentioned purpose. In case of problems please do open an issue and someone will try and help! 
+
+```c++
+void gdml_to_root_export() 
+{
+    // Loading the library and geometry
+    gSystem->Load("libGeom");
+    TGeoManager::Import("./path_of_your_gdml_file.gdml");
+    gGeoManager->SetVisLevel(4); /// the number here can be changed based on the depth of the visibility level of your gdml file and the detail that you want to visualize it. 
+
+    // Export the geometry
+    gGeoManager->Export("filename.root");
+}
+```
+
+> Keep in mind that in order for the above function to work, you should have installed the C++ ROOT Framework on your machine. 
+
+Compiling and running the above code should result in outputting the .root file from your .gdml input. 
+
+##### Verify that the .root file is extracted properly. 
+
+One can visualize the .root file itself to be sure that it was extracted properly. 
+We'll provide 2 tools one can use here and one of them is Phoenix itself.
+
+> But why convert to .gltf since Phoenix supports .root visualization? 
+
+.root visualization will result into kinda a poor visualization image and also not that great of performance. Also another good reason to not stick with .root is that one can not split the .root file itself into multiple sub-parts / sub-geometries thus eliminating one of the core functionalities of Phoenix into geometry visualization. And thus a new tool was created for this very purpose. 
+
+#### 📐 ROOT to GLTF [web-based tool](https://lhcb-web-display.app.cern.ch/#/gltf-exporter) 
+
+On the following 👉 [website](https://lhcb-web-display.app.cern.ch/#/gltf-exporter) you will find the new web-based tool that was created so you can first verify that your .root file was extracted properly and then translate it into `.gltf` so you can visualize it properly inside Phoenix. 
+
+There is enough information in the website itself, so you won't get lost but some quick steps to follow in order, would be: 
+
+1. Import your local .root file.
+2. Do type the particular root object string in the empty box and click the button `Import root`.
+3. Do wait a couple of seconds and it should load automatically and you'll be able to see it visualized properly. 
+4. `If you don't know where to find the root object name just scroll a bit down on the page and you'll find relevant info.` 
+5. Go at the bottom of the page and press the button `export to gltf` (only if you import your root file via a URL. Importing it from your local machine will translate it automatically to gltf)
+6. It might take a couple of seconds or minutes (depending on the file size) and then your .gltf file will get downloaded locally automatically. 
+7. Upload your .gltf file to the GLTF viewer at the bottom of the page and verify that it was extracted properly. 
+8. Go and visualize your file inside Phoenix and play with it! 
+
+> Below you can find useful gifs demonstrating the above steps!
+
+##### Convert the geometry while importing the file locally from your machine
+
+![export-from-local-file](./src/assets/gifs/export-from-local-file.gif)
+
+##### Convert the geometry while importing the file via a web browser URL
+
+![export-from-url](./src/assets/gifs/export-from-url.gif)
+
+##### How to find the ROOT object name
+
+![find-root-object-name](./src/assets/gifs/find-root-object-name.gif)
+
+#### Split your GLTF geometry into multiple parts
+
+After extracting our geometry and visualizing into Phoenix we might want to split it into multiple subparts to visualize and play with each part of our geometry seperately. 
+
+To do that one might need to modify some code for his .gltf file but extensive documentation is written for the ease of that purpose over 👉 [here](https://github.com/andrewpap22/root_cern-To_gltf-Exporter) and 👉 [here](https://gitlab.cern.ch/bcouturi/gltfexporter)!
+
+Just follow the documentation in ether of the above links and you should be good to split your whole geometry into multiple subparts and be able to visualize into Phoenix each one of them seperately or all together with the option to enable and disable each part from the UI!
+
+Again feel free to open an [issue](https://github.com/HSF/phoenix/issues) if stuck and some friendly folk will try and help!
+
+## 🚀 Deployment
+
+The project is deployed under `paas.cern.ch` which is the open source version of OpenShift 4 (namely okd4)
+
+Detailed **documentation** on how to solve any problem that might occur with the deployment of this project can be found on the following 👉 [URL](https://paas.docs.cern.ch/).
+
+What we mostly care for at this point is on to `how to push new changes made inside the application to the deployment.` 
+
+Since the deployment of this application is linked to my [CERN GitLab profile](https://gitlab.cern.ch/anpappas) but no GitLab CI is used, you'll have to manually update the changes to the deployment after `committing` and `pushing` your new changes to the project. To do that: 
+
+#### Push new changes to the deployment
+
+1. Docker Login
+
+```bash
+docker login gitlab-registry.cern.ch
+```
+
+2. Build the docker image
+
+```bash
+docker build -t gitlab-registry.cern.ch/anpappas/lhcb_webdisplay .
+```
+
+3. Push the image
+
+```bash
+docker push gitlab-registry.cern.ch/anpappas/lhcb_webdisplay
+```
+
+After the above 3 steps, your new changes should get updated on the deployment side as well! 
+
+To verify that the changes have been applied you can of course visit the application's 👉 [webiste](https://lhcb-web-display.app.cern.ch/) or head over to the repository in GitLab and under, `Packages & Registries/Container Registry` you should be able to diagnose if the root image has been built successfully or not and check the errors in case it's not.
+
+<hr>
 
 &copy; [CERN](https://home.cern/) 2021 by [\<Andreas\> \<\\A. Pappas\>](https://twitter.com/AndreasPappas22) @[LHCb](https://lhcb.web.cern.ch/)
-
--------------------------------------------------------------------------------------------------------------------------
-TODOs: 
-
-vhmata gia full successfull local dev tou project ✅
-vhmata gia to deployment me ta commands apo to gitlab
-plhrofories gia to okd4 
-info to execute project using docker
-point to Phoenix Documentation for info on how to setup another experiment, as we did with this one
-and add detailed information on how the gui and non gui gltf exporter can be used to export geometries and display them.
-na deiksw kapoia screenshots h video gia to pws douleuoun ta 2 project. (na kanw record to screen mou me to peek)
---------------------------------------------------------------------------------------------------------------------------
